@@ -325,7 +325,7 @@ class TensorRTLLMEngine:
                 audio_queue.put({"llm_output": output, "eos": self.eos})
                 logging.info(f"[LLM INFO:] Output: {output[0]}\nLLM inference done in {self.infer_time} ms\n\n")
             
-            if self.eos:
+            if self.eos and output is not None and transcription_output is not None:
                 conversation_history[transcription_output["uid"]].append(
                     (transcription_output['prompt'].strip(), output[0].strip())
                 )
